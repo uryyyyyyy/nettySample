@@ -9,7 +9,7 @@ object Main {
 
   def main (args: Array[String] ): Unit = {
 
-    val action = new Service[Request, Response] {
+    val index = new Service[Request, Response] {
       def apply(request: http.Request): Future[http.Response] = {
         val res = http.Response(request.version, http.Status.Ok)
         res.setContentString("Ok")
@@ -17,25 +17,28 @@ object Main {
       }
     }
 
-    def execute(userId: String) = new Service[Request, Response] {
+    def execute(userId: String, num: Int) = new Service[Request, Response] {
 
       def apply(request: Request): Future[http.Response] = {
-        val resultString = s"user id: ${userId}"
+        val resultString = s"user id: ${userId}. num: ${num}"
         val res = http.Response(request.version, http.Status.Ok)
         res.setContentString(resultString)
 
         val cookie = new Cookie("key", "value")
         cookie.httpOnly_=(true)
         res.addCookie(cookie)
+
+        res.setContentType("text/plain")
+
         Future.value(res)
       }
     }
 
     import com.twitter.finagle.http.path._
     val router = RoutingService.byPathObject[Request] {
-      case Root / "userId" / userId => execute(userId)
-      case Root / "userId" => execute("uuu")
-      case _                             => action
+      case Root / "userId" / userId / "number" / Integer(num) => execute(userId, num)
+      case Root / "userId" => execute("uuu", 3)
+      case _                             => index
     }
 
     // rpcサーバの起動
