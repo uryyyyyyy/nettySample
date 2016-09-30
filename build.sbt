@@ -23,6 +23,13 @@ lazy val finagleHttp = (project in file("finagleHttp"))
   .settings(
     libraryDependencies ++= Seq(
       "com.twitter" %% "finagle-netty4-http" % "6.37.0"
-    ),
-    mainClass in assembly := Some("com.github.uryyyyyyy.netty.finagle.http.server.Main")
+    )
+  )
+
+lazy val akkaRemote = (project in file("akkaRemote"))
+  .settings(commonSettings: _*)
+  .settings(
+    libraryDependencies ++= Seq(
+      "com.typesafe.akka" %% "akka-remote" % "2.4.10"
+    )
   )
