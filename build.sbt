@@ -14,7 +14,8 @@ lazy val helloWorld = (project in file("helloWorld"))
   .settings(commonSettings: _*)
   .settings(
     libraryDependencies ++= Seq(
-      "io.netty" % "netty-all" % "4.1.4.Final"
+      "io.netty" % "netty-all" % "4.1.4.Final",
+      "org.mortbay.jetty.alpn" % "alpn-boot" % "8.1.9.v20160720"
     )
 //    javaOptions in run += "-Xbootclasspath/p:/your/path/nettySample/alpn-boot-8.1.9.v20160720.jar"
   )
