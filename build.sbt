@@ -16,7 +16,10 @@ lazy val helloWorld = (project in file("helloWorld"))
     libraryDependencies ++= Seq(
       "io.netty" % "netty-all" % "4.1.4.Final"
     )
+//    javaOptions in run += "-Xbootclasspath/p:/your/path/nettySample/alpn-boot-8.1.9.v20160720.jar"
   )
+
+//java -cp helloWorld-assembly-0.1-SNAPSHOT.jar -Xbootclasspath/p:/media/shiba/shibaHDD/develop/git/nettySample/alpn-boot-8.1.9.v20160720.jar com.github.uryyyyyyy.netty.http2Example.Http2Server
 
 lazy val finagleHttp = (project in file("finagleHttp"))
   .settings(commonSettings: _*)
